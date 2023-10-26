@@ -46,6 +46,9 @@ namespace Exercice_Animalerie.Models
         /// </summary>
         public abstract double DeathProba { get; }
 
+        /// <summary>
+        /// Symbolise state (Life or Death) of this animal
+        /// </summary>
         public bool IsAlive {
             get { return _isAlive; }
         }
@@ -58,6 +61,9 @@ namespace Exercice_Animalerie.Models
         public abstract string Scream();
 
 
+        /// <summary>
+        /// Procedure with all event during start of day
+        /// </summary>
         public virtual void startOfDay()
         {
             if(DiedInNigth())
@@ -68,8 +74,15 @@ namespace Exercice_Animalerie.Models
             }
         }
 
+        /// <summary>
+        /// Procedure with all event during end of day
+        /// </summary>
         public virtual void EndOfDay() { }
 
+        /// <summary>
+        /// Check if animal dead in the nigth
+        /// </summary>
+        /// <returns>Death or Life</returns>
         private bool DiedInNigth()
         {
             double proba = new Random().NextDouble() * 100;
