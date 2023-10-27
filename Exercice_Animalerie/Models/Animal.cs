@@ -9,8 +9,11 @@ namespace Exercice_Animalerie.Models
 {
     public abstract class Animal
     {
-        private bool _isAlive = true;
+        #region Fields
+        private bool _isAlive;
+        #endregion
 
+        #region Props
         /// <summary>
         /// Animal's name
         /// </summary>
@@ -52,8 +55,36 @@ namespace Exercice_Animalerie.Models
         public bool IsAlive {
             get { return _isAlive; }
         }
+        #endregion
 
+        #region Ctor
 
+        /// <summary>
+        /// Permet de créer un animal
+        /// </summary>
+        public Animal(string name, double weight, double size, SexEnum sex, int age)
+        {
+            this._isAlive = true;
+
+            this.Name = name;
+            this.Weight = weight;
+            this.Size = size;
+            this.Sex = sex;
+            this.Age = age;
+            this.ArrivalDate = DateTime.Today;
+        }
+
+        /// <summary>
+        /// Permet de restaurer un animal depuis la DB
+        /// </summary>
+        public Animal(string name, double weight, double size, SexEnum sex, int age, DateTime arrivalDate)
+            : this(name, weight, size, sex, age)
+        {
+            this.ArrivalDate = arrivalDate;
+        }
+        #endregion
+
+        #region Méthodes
         /// <summary>
         /// Method to get scream of animal
         /// </summary>
@@ -89,5 +120,6 @@ namespace Exercice_Animalerie.Models
 
             return proba <= DeathProba;
         }
+        #endregion
     }
 }

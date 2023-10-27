@@ -8,13 +8,16 @@ namespace Exercice_Animalerie.Models
 {
     public class PetStore
     {
-        private List<Animal> animals = new List<Animal>();
+        #region Fields
+        private List<Animal> _animals;
+        #endregion
 
+        #region Props
         public string Name { get; set; } = null!;
         public int Day { get; private set; }
         public IEnumerable<Animal> Animals
         {
-            get { return animals.AsReadOnly(); }
+            get { return _animals.AsReadOnly(); }
         }
 
         // TODO Use generic to simplify this 3 props
@@ -23,7 +26,7 @@ namespace Exercice_Animalerie.Models
             get
             {
                 int nb = 0;
-                foreach (Animal animal in animals)
+                foreach (Animal animal in _animals)
                 {
                     if (animal.IsAlive && animal is Dog)
                     {
@@ -38,7 +41,7 @@ namespace Exercice_Animalerie.Models
             get
             {
                 int nb = 0;
-                foreach (Animal animal in animals)
+                foreach (Animal animal in _animals)
                 {
                     if (animal.IsAlive && animal is Cat)
                     {
@@ -53,7 +56,7 @@ namespace Exercice_Animalerie.Models
             get
             {
                 int nb = 0;
-                foreach (Animal animal in animals)
+                foreach (Animal animal in _animals)
                 {
                     if (animal.IsAlive && animal is Bird)
                     {
@@ -63,23 +66,33 @@ namespace Exercice_Animalerie.Models
                 return nb;
             }
         }
+        #endregion
 
-        // Methods
+        public PetStore(string name)
+        {
+            Name = name;
+            Day = 0;
+            _animals = new List<Animal>();
+        }
+
+        #region Methods
         public void AddAnimal(Animal animal)
         {
             if (!animal.IsAlive) return;
 
-            if (animal is Cat cat)
-            {
-                cat.CutClaw();
-            }
-            animal.ArrivalDate = DateTime.Now;
-
-            animals.Add(animal);
+            _animals.Add(animal);
         }
-        private void MorningEvent()
+        public void AddAnimal(params Animal[] animals)
         {
             foreach (Animal animal in animals)
+            {
+                AddAnimal(animal);
+            }
+        }
+
+        private void MorningEvent()
+        {
+            foreach (Animal animal in _animals)
             {
                 animal.startOfDay();
 
@@ -97,7 +110,7 @@ namespace Exercice_Animalerie.Models
 
         private void NigthEvent()
         {
-            foreach (Animal animal in animals)
+            foreach (Animal animal in _animals)
             {
                 animal.EndOfDay();
             }
@@ -106,13 +119,13 @@ namespace Exercice_Animalerie.Models
         private void CleanDeathAnimal()
         {
             int i = 0;
-            while (i < animals.Count)
+            while (i < _animals.Count)
             {
-                Animal animal = animals[i];
+                Animal animal = _animals[i];
 
                 if (!animal.IsAlive)
                 {
-                    animals.RemoveAt(i);
+                    _animals.RemoveAt(i);
                 }
                 else
                 {
@@ -136,5 +149,6 @@ namespace Exercice_Animalerie.Models
             Console.WriteLine(" - Nuit");
             NigthEvent();
         }
+        #endregion
     }
 }

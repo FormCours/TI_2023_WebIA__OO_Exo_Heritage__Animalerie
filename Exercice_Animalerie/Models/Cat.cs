@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Exercice_Animalerie.Enums;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -8,9 +9,12 @@ namespace Exercice_Animalerie.Models
 {
     public class Cat : Animal
     {
+        #region Fields
         private int _clawSize;
         private bool _isLongHair;
+        #endregion
 
+        #region Props
         public string? Charcater { get; set; }
 
         public bool CuttedClaw
@@ -34,7 +38,32 @@ namespace Exercice_Animalerie.Models
         {
             get { return 0.5; }
         }
+        #endregion
 
+
+        #region Ctor
+        private void Initialize(string? charcater, bool isLongHair)
+        {
+            Charcater = charcater;
+            IsLongHair = isLongHair;
+            _clawSize = (new Random()).Next(0, 11);
+        }
+
+        public Cat(string name, double weight, double size, SexEnum sex, int age, string? charcater, bool isLongHair)
+            : base(name, weight, size, sex, age)
+        {
+            Initialize(charcater, isLongHair);
+        }
+
+        public Cat(string name, double weight, double size, SexEnum sex, int age, DateTime arrivalDate, string? charcater, bool isLongHair)
+            : base(name, weight, size, sex, age, arrivalDate)
+        {
+            Initialize(charcater, isLongHair);
+        }
+        #endregion
+
+
+        #region Methods
         public override string Scream()
         {
             return "Miaou";
@@ -49,6 +78,6 @@ namespace Exercice_Animalerie.Models
         {
             _clawSize++;
         }
-
+        #endregion
     }
 }
