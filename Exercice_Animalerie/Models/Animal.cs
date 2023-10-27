@@ -7,8 +7,14 @@ using System.Threading.Tasks;
 
 namespace Exercice_Animalerie.Models
 {
+    public delegate void AnimalDeathEventHandler(Animal animal);
+
     public abstract class Animal
     {
+        #region Event
+        public event AnimalDeathEventHandler? AnimalDeath = null;
+        #endregion
+
         #region Fields
         private bool _isAlive;
         #endregion
@@ -97,11 +103,11 @@ namespace Exercice_Animalerie.Models
         /// </summary>
         public virtual void startOfDay()
         {
-            if(DiedInNigth())
+            if(DiedInNigth() || true)
             {
-                Console.WriteLine("EVENT : " + Name + " " + Scream() + " et meurt..." );
-
                 _isAlive = false;
+
+                AnimalDeath?.Invoke(this);
             }
         }
 

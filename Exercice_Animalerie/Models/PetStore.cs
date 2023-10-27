@@ -80,6 +80,8 @@ namespace Exercice_Animalerie.Models
         {
             if (!animal.IsAlive) return;
 
+            animal.AnimalDeath += AffichageMortAnimal;
+
             _animals.Add(animal);
         }
         public void AddAnimal(params Animal[] animals)
@@ -148,6 +150,11 @@ namespace Exercice_Animalerie.Models
             CleanDeathAnimal();
             Console.WriteLine(" - Nuit");
             NigthEvent();
+        }
+
+        private void AffichageMortAnimal(Animal animal)
+        {
+            Console.WriteLine($"{animal.Name} est mouru :'( ");
         }
         #endregion
     }

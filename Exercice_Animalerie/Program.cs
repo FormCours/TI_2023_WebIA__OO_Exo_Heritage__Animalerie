@@ -1,5 +1,6 @@
 ﻿using Exercice_Animalerie.Enums;
 using Exercice_Animalerie.Models;
+using System.Threading.Channels;
 
 PetStore petStore = new PetStore("TechniAnimals");
 
@@ -11,7 +12,9 @@ petStore.AddAnimal(a1, a2, a3);
 petStore.AddAnimal(new Dog("Snoopy", 5.7, 45, SexEnum.M, 5, "Rouge", "Beagle", true));
 petStore.AddAnimal(new Dog("Grey", 0.7, 15, SexEnum.F, 9, "Rose bonbon avec un noeud", "Chihuahua", false));
 
-petStore.AddAnimal(new Bird("Titi", 0.1, 10, SexEnum.F, 6, "Jaune", Bird.HabitatEnum.CAGE));
+Bird b1 = new Bird("Titi", 0.1, 10, SexEnum.F, 6, "Jaune", Bird.HabitatEnum.CAGE);
+b1.AnimalDeath += (a) => Console.WriteLine($"{a.Name} {a.Scream()}");
+petStore.AddAnimal(b1);
 
 while(petStore.Animals.Count() > 0)
 {
