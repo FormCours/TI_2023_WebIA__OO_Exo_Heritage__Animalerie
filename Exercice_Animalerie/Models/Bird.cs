@@ -60,7 +60,7 @@ namespace Exercice_Animalerie.Models
 
         public override void EndOfDay()
         {
-            Console.WriteLine("EVENT : " + Name + " " + Scream());
+            RaiseEventAnimalMessage(Scream());
         }
         #endregion
     }

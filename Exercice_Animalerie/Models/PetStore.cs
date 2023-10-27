@@ -81,6 +81,7 @@ namespace Exercice_Animalerie.Models
             if (!animal.IsAlive) return;
 
             animal.AnimalDeath += AffichageMortAnimal;
+            animal.AnimalMessage += AffichageEventAnimal;
 
             _animals.Add(animal);
         }
@@ -102,7 +103,7 @@ namespace Exercice_Animalerie.Models
                 {
                     if (!cat.CuttedClaw)
                     {
-                        Console.WriteLine($"EVENT : {animal.Name} griffe Jean-Michel");
+                        Console.WriteLine($"{animal.Name} griffe Jean-Michel");
 
                         cat.CutClaw();
                     }
@@ -155,6 +156,10 @@ namespace Exercice_Animalerie.Models
         private void AffichageMortAnimal(Animal animal)
         {
             Console.WriteLine($"{animal.Name} est mouru :'( ");
+        }
+        private void AffichageEventAnimal(Animal animal, string message)
+        {
+            Console.WriteLine($"{animal.Name} : {message}");
         }
         #endregion
     }

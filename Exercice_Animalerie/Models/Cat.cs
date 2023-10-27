@@ -74,8 +74,19 @@ namespace Exercice_Animalerie.Models
             _clawSize = 0;
         }
 
+        public override void startOfDay()
+        {
+            if(!CuttedClaw)
+            {
+                RaiseEventAnimalMessage("Attaque le premier venu !");
+            }
+
+            base.startOfDay();
+        }
+
         public override void EndOfDay()
         {
+            base.EndOfDay();
             _clawSize++;
         }
         #endregion
